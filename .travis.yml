@@ -24,7 +24,7 @@ cache:
         - "~/.platformio"
 
 install:
-    - pip install platformio==3.5.2
+    - pip install platformio==3.6.7
     - platformio update
 
 script:
