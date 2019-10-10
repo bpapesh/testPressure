@@ -24,18 +24,18 @@ cache:
         - "~/.platformio"
 
 install:
-    - pip install -U platformio
+    - pip install platformio==3.5.2
     - platformio update
 
 script:
     - echo "Check compiler errors"
     - platformio run
 
-    - echo "List remote devices"
-    - platformio remote device list
+    # - echo "List remote devices"
+    # - platformio remote device list
 
-    - echo "Run embedded test on a remote device"
-    - platformio remote test -r
+    # - echo "Run embedded test on a remote device"
+    # - platformio remote test -r
 
 deploy:
   provider: script
