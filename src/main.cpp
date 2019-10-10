@@ -21,6 +21,8 @@
 const uint16_t OTA_CHECK_INTERVAL = 3000; // ms
 uint32_t _lastOTACheck = 0;
 
+const int ledPin = 22;
+
 void setup()
 {
   Serial.begin(115200);
@@ -40,6 +42,7 @@ void setup()
   Serial.println(" connected!");
   _lastOTACheck = millis();
 
+pinMode(ledPin, OUTPUT);
   // your setup code goes here
 }
 
@@ -50,5 +53,9 @@ void loop()
     checkFirmwareUpdates();
   }
 
+digitalWrite(ledPin, HIGH);
+delay(500);
+digitalWrite(ledPin, LOW);
+delay(500);
   // your loop code goes here
 }
