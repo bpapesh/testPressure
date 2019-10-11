@@ -53,9 +53,9 @@ void loop()
     checkFirmwareUpdates();
   }
 
-digitalWrite(ledPin, HIGH);
-delay(500);
-digitalWrite(ledPin, LOW);
-delay(500);
+// digitalWrite(ledPin, HIGH);
+// delay(500);
+// digitalWrite(ledPin, LOW);
+// delay(500);
   // your loop code goes here
 }

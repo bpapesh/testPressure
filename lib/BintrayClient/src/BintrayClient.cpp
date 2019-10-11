@@ -106,7 +106,7 @@ String BintrayClient::getLatestVersion() const
     String version;
     const String url = getLatestVersionRequestUrl();
     String jsonResult = requestHTTPContent(url);
-    const size_t bufferSize = 1024;
+    const size_t bufferSize = 2048;
     if (jsonResult.length() > bufferSize)
     {
         Serial.println("Error: Could parse JSON. Input data is too big!");
