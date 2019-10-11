@@ -54,7 +54,7 @@ void loop()
   }
 
 digitalWrite(ledPin, HIGH);
-delay(2000);
+delay(100);
 digitalWrite(ledPin, LOW);
 delay(250);
   // your loop code goes here
