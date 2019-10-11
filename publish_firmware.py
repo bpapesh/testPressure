@@ -54,8 +54,7 @@ def publish_firmware(source, target, env):
                          data=open(firmware_path, "rb"),
                          headers=headers,
                          auth=(bintray_config.get("user"),
-                               bintray_config['api_token']))
-        print(bintray_config['api_token'])
+                               bintray_config.get("api_token")))
         r.raise_for_status()
     except requests.exceptions.RequestException as e:
         sys.stderr.write("Failed to submit package: %s\n" %
