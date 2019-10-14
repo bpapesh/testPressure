@@ -51,10 +51,7 @@ void loop()
     checkFirmwareUpdates();
   }
 
-  static httpd_handle_t server = NULL;
-  ESP_ERROR_CHECK(nvs_flash_init());
-  init_camera();
-  initialise_wifi(&server);
+
 
   // your loop code goes here
 }
