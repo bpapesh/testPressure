@@ -265,12 +265,13 @@ void setup()
   _lastOTACheck = millis();
 
   Serial.print("Camera Stream Ready! Go to: http://");
-  Serial.print(WiFi.localIP());
+  Serial.println(WiFi.localIP());
   
   // Start streaming web server
   startCameraServer();
 
   // your setup code goes here
+  Serial.println(config.frame_size);
 }
 
 
@@ -280,7 +281,6 @@ void loop()
     _lastOTACheck = millis();
     checkFirmwareUpdates();
   }
-
 
 
   // your loop code goes here
