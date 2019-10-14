@@ -24,7 +24,7 @@
 #include "fb_gfx.h"
 #include "soc/soc.h" //disable brownout problems
 #include "soc/rtc_cntl_reg.h"  //disable brownout problems
-#include "dl_lib.h"
+// #include "dl_lib.h"
 #include "esp_http_server.h"
 
 const uint16_t OTA_CHECK_INTERVAL = 3000; // ms
