@@ -27,8 +27,19 @@
 // #include "dl_lib.h"
 #include "esp_http_server.h"
 
+#include "FS.h"                // SD Card ESP32
+#include "SD_MMC.h"            // SD Card ESP32
+#include "driver/rtc_io.h"
+#include <EEPROM.h>            // read and write from flash memory
+
+#define EEPROM_SIZE 2
+
+int pictureNumber = 0;
+
 const uint16_t OTA_CHECK_INTERVAL = 3000; // ms
 uint32_t _lastOTACheck = 0;
+const uint16_t CAMERA_INTERVAL = 10000; // ms
+uint32_t _lastCAMInt = 0;
 
 #define PART_BOUNDARY "123456789000000000000987654321"
 
@@ -201,6 +212,54 @@ void startCameraServer(){
   }
 }
 
+
+void takePicAndStore(){
+ 
+  //Serial.println("Starting SD Card");
+  if(!SD_MMC.begin()){
+    Serial.println("SD Card Mount Failed");
+    return;
+  }
+  
+  uint8_t cardType = SD_MMC.cardType();
+  if(cardType == CARD_NONE){
+    Serial.println("No SD Card attached");
+    return;
+  }
+    
+  camera_fb_t * fb = NULL;
+  
+  // Take Picture with Camera
+  fb = esp_camera_fb_get();  
+  if(!fb) {
+    Serial.println("Camera capture failed");
+    return;
+  }
+  // initialize EEPROM with predefined size
+  EEPROM.begin(EEPROM_SIZE);
+  pictureNumber = EEPROM.read(0) + 1;
+
+  // Path where new picture will be saved in SD Card
+  String path = "/picture" + String(pictureNumber) +".jpg";
+
+  fs::FS &fs = SD_MMC; 
+  Serial.printf("Picture file name: %s\n", path.c_str());
+  
+  File file = fs.open(path.c_str(), FILE_WRITE);
+  if(!file){
+    Serial.println("Failed to open file in writing mode");
+  } 
+  else {
+    file.write(fb->buf, fb->len); // payload (image), payload length
+    Serial.printf("Saved file to path: %s\n", path.c_str());
+    EEPROM.write(0, pictureNumber);
+    EEPROM.commit();
+  }
+  file.close();
+  esp_camera_fb_return(fb); 
+  
+}
+
 void setup()
 {
   Serial.begin(115200);
@@ -280,6 +339,11 @@ void loop()
   if ((millis() - OTA_CHECK_INTERVAL) > _lastOTACheck) {
     _lastOTACheck = millis();
     checkFirmwareUpdates();
+  }
+
+  if ((millis() - CAMERA_INTERVAL) > _lastOTACheck) {
+    _lastCAMInt = millis();
+    takePicAndStore();
   }
 
 
