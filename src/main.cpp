@@ -346,7 +346,6 @@ void loop()
     _lastCAMInt = millis();
     takePicAndStore();
     delay(10);
-    startCameraServer();
   }
 
 
