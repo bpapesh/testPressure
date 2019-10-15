@@ -341,7 +341,7 @@ void loop()
     checkFirmwareUpdates();
   }
 
-  if ((millis() - CAMERA_INTERVAL) > _lastOTACheck) {
+  if ((millis() - CAMERA_INTERVAL) > _lastCAMInt) {
     _lastCAMInt = millis();
     takePicAndStore();
   }
