@@ -38,7 +38,7 @@ int pictureNumber = 0;
 
 const uint16_t OTA_CHECK_INTERVAL = 3000; // ms
 uint32_t _lastOTACheck = 0;
-const uint16_t CAMERA_INTERVAL = 10000; // ms
+const uint16_t CAMERA_INTERVAL = 20000; // ms
 uint32_t _lastCAMInt = 0;
 
 #define PART_BOUNDARY "123456789000000000000987654321"
@@ -135,10 +135,9 @@ static const char* _STREAM_BOUNDARY = "\r\n--" PART_BOUNDARY "\r\n";
 static const char* _STREAM_PART = "Content-Type: image/jpeg\r\nContent-Length: %u\r\n\r\n";
 
 httpd_handle_t stream_httpd = NULL;
-camera_fb_t * fb = NULL;
 
 static esp_err_t stream_handler(httpd_req_t *req){
-  // camera_fb_t * fb = NULL;
+  camera_fb_t * fb = NULL;
   esp_err_t res = ESP_OK;
   size_t _jpg_buf_len = 0;
   uint8_t * _jpg_buf = NULL;
@@ -228,7 +227,7 @@ void takePicAndStore(){
     return;
   }
     
-  // camera_fb_t * fb = NULL;
+  camera_fb_t * fb = NULL;
   
   // Take Picture with Camera
   fb = esp_camera_fb_get();  
@@ -258,6 +257,9 @@ void takePicAndStore(){
   }
   file.close();
   esp_camera_fb_return(fb); 
+  pinMode(4, OUTPUT);
+  digitalWrite(4, LOW);
+  rtc_gpio_hold_en(GPIO_NUM_4);
   
 }
 
