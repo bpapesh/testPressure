@@ -347,7 +347,7 @@ void loop()
   if ((millis() - CAMERA_INTERVAL) > _lastCAMInt) {
     _lastCAMInt = millis();
     takePicAndStore();
-    delay(10);
+    delay(100);
   }
 
 
