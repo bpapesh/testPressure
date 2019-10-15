@@ -135,9 +135,10 @@ static const char* _STREAM_BOUNDARY = "\r\n--" PART_BOUNDARY "\r\n";
 static const char* _STREAM_PART = "Content-Type: image/jpeg\r\nContent-Length: %u\r\n\r\n";
 
 httpd_handle_t stream_httpd = NULL;
+camera_fb_t * fb = NULL;
 
 static esp_err_t stream_handler(httpd_req_t *req){
-  camera_fb_t * fb = NULL;
+  // camera_fb_t * fb = NULL;
   esp_err_t res = ESP_OK;
   size_t _jpg_buf_len = 0;
   uint8_t * _jpg_buf = NULL;
@@ -227,10 +228,10 @@ void takePicAndStore(){
     return;
   }
     
-  camera_fb_t * fb = NULL;
+  // camera_fb_t * fb = NULL;
   
   // Take Picture with Camera
-  fb = esp_camera_fb_get();  
+  // fb = esp_camera_fb_get();  
   if(!fb) {
     Serial.println("Camera capture failed");
     return;
