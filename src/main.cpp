@@ -272,6 +272,7 @@ void setup()
 
   // your setup code goes here
   Serial.println(config.frame_size);
+  Serial.println(psramFound());
 }
 
 
