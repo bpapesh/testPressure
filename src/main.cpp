@@ -350,6 +350,6 @@ void loop()
   //   delay(100);
   // }
 
-  println(millis());
+  Serial.println(millis());
   // your loop code goes here
 }
