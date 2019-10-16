@@ -344,11 +344,11 @@ void loop()
     checkFirmwareUpdates();
   }
 
-  if ((millis() - CAMERA_INTERVAL) > _lastCAMInt) {
-    _lastCAMInt = millis();
-    takePicAndStore();
-    delay(100);
-  }
+  // if ((millis() - CAMERA_INTERVAL) > _lastCAMInt) {
+  //   _lastCAMInt = millis();
+  //   takePicAndStore();
+  //   delay(100);
+  // }
 
 
   // your loop code goes here
