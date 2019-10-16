@@ -213,55 +213,55 @@ void startCameraServer(){
 }
 
 
-void takePicAndStore(){
+// void takePicAndStore(){
  
-  //Serial.println("Starting SD Card");
-  if(!SD_MMC.begin()){
-    Serial.println("SD Card Mount Failed");
-    return;
-  }
+//   //Serial.println("Starting SD Card");
+//   if(!SD_MMC.begin()){
+//     Serial.println("SD Card Mount Failed");
+//     return;
+//   }
   
-  uint8_t cardType = SD_MMC.cardType();
-  if(cardType == CARD_NONE){
-    Serial.println("No SD Card attached");
-    return;
-  }
+//   uint8_t cardType = SD_MMC.cardType();
+//   if(cardType == CARD_NONE){
+//     Serial.println("No SD Card attached");
+//     return;
+//   }
     
-  camera_fb_t * fb = NULL;
+//   camera_fb_t * fb = NULL;
   
-  // Take Picture with Camera
-  fb = esp_camera_fb_get();  
-  if(!fb) {
-    Serial.println("Camera capture failed");
-    return;
-  }
-  // initialize EEPROM with predefined size
-  EEPROM.begin(EEPROM_SIZE);
-  pictureNumber = EEPROM.read(0) + 1;
+//   // Take Picture with Camera
+//   fb = esp_camera_fb_get();  
+//   if(!fb) {
+//     Serial.println("Camera capture failed");
+//     return;
+//   }
+//   // initialize EEPROM with predefined size
+//   EEPROM.begin(EEPROM_SIZE);
+//   pictureNumber = EEPROM.read(0) + 1;
 
-  // Path where new picture will be saved in SD Card
-  String path = "/picture" + String(pictureNumber) +".jpg";
+//   // Path where new picture will be saved in SD Card
+//   String path = "/picture" + String(pictureNumber) +".jpg";
 
-  fs::FS &fs = SD_MMC; 
-  Serial.printf("Picture file name: %s\n", path.c_str());
+//   fs::FS &fs = SD_MMC; 
+//   Serial.printf("Picture file name: %s\n", path.c_str());
   
-  File file = fs.open(path.c_str(), FILE_WRITE);
-  if(!file){
-    Serial.println("Failed to open file in writing mode");
-  } 
-  else {
-    file.write(fb->buf, fb->len); // payload (image), payload length
-    Serial.printf("Saved file to path: %s\n", path.c_str());
-    EEPROM.write(0, pictureNumber);
-    EEPROM.commit();
-  }
-  file.close();
-  esp_camera_fb_return(fb); 
-  pinMode(4, OUTPUT);
-  digitalWrite(4, LOW);
-  rtc_gpio_hold_en(GPIO_NUM_4);
+//   File file = fs.open(path.c_str(), FILE_WRITE);
+//   if(!file){
+//     Serial.println("Failed to open file in writing mode");
+//   } 
+//   else {
+//     file.write(fb->buf, fb->len); // payload (image), payload length
+//     Serial.printf("Saved file to path: %s\n", path.c_str());
+//     EEPROM.write(0, pictureNumber);
+//     EEPROM.commit();
+//   }
+//   file.close();
+//   esp_camera_fb_return(fb); 
+//   pinMode(4, OUTPUT);
+//   digitalWrite(4, LOW);
+//   rtc_gpio_hold_en(GPIO_NUM_4);
   
-}
+// }
 
 void setup()
 {
@@ -350,6 +350,6 @@ void loop()
   //   delay(100);
   // }
 
-
+  println(millis());
   // your loop code goes here
 }
