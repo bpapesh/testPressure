@@ -41,7 +41,8 @@ uint32_t _lastOTACheck = 0;
 const uint16_t CAMERA_INTERVAL = 20000; // ms
 uint32_t _lastCAMInt = 0;
 
-unsigned long check_wifi = 30000;
+const uint16_t CHECK_WIFI_INTERVAL = 30000; // ms
+uint32_t _lastWIFIInt = 0;
 
 #define PART_BOUNDARY "123456789000000000000987654321"
 
@@ -347,11 +348,11 @@ void loop()
   }
 
   // if wifi is down, try reconnecting every 30 seconds
-  if ((WiFi.status() != WL_CONNECTED) && (millis() > check_wifi)) {
+  if ((WiFi.status() != WL_CONNECTED) && (millis() - CHECK_WIFI_INTERVAL > _lastWIFIInt)) {
     Serial.println("Reconnecting to WiFi...");
     WiFi.disconnect();
     WiFi.begin(WIFI_SSID, WIFI_PASS);
-    check_wifi = millis() + 30000;
+    _lastWIFIInt = millis();
   }
 
 
