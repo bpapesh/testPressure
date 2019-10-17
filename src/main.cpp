@@ -350,6 +350,5 @@ void loop()
   //   delay(100);
   // }
 
-  Serial.println(millis());
   // your loop code goes here
 }
