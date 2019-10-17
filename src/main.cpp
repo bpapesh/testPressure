@@ -41,6 +41,8 @@ uint32_t _lastOTACheck = 0;
 const uint16_t CAMERA_INTERVAL = 20000; // ms
 uint32_t _lastCAMInt = 0;
 
+unsigned long check_wifi = 30000;
+
 #define PART_BOUNDARY "123456789000000000000987654321"
 
 // This project was tested with the AI Thinker Model, M5STACK PSRAM Model and M5STACK WITHOUT PSRAM
@@ -343,6 +345,15 @@ void loop()
     _lastOTACheck = millis();
     checkFirmwareUpdates();
   }
+
+  // if wifi is down, try reconnecting every 30 seconds
+  if ((WiFi.status() != WL_CONNECTED) && (millis() > check_wifi)) {
+    Serial.println("Reconnecting to WiFi...");
+    WiFi.disconnect();
+    WiFi.begin(WIFI_SSID, WIFI_PASS);
+    check_wifi = millis() + 30000;
+  }
+
 
   // if ((millis() - CAMERA_INTERVAL) > _lastCAMInt) {
   //   _lastCAMInt = millis();
